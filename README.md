@@ -14,12 +14,17 @@ The software you need and example data are either linked to or reside on the lab
 * this
 * this too
 ## Setup
-###computer requirements, environments, recommendations
-###software and toolkits
+### computer requirements, environments, recommendations
+### software and toolkits
+
 🔗 this stuff
+
 🔗 this stuff
+
 🔗 this stuff
+
 🏴we will use version 34875934 because blah blah but other configurations will benefit from most recent version
+
 
     
 ## Getting started with example data
@@ -27,6 +32,7 @@ The software you need and example data are either linked to or reside on the lab
 ### blah
 * thing
 * thing
-* 
+
+  
 ##  Getting started with your own data
 ### considerations
