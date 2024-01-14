@@ -1,4 +1,4 @@
-# SpikeSortingLauncher
+# Spike Sorting with Kilosort
 Spike Sorting launcher: setup, tutorial, examples, best practice for Hoffman Lab data
 	
 ------------------------------------------------------------------------
@@ -9,30 +9,13 @@ The software you need and example data are either linked to or reside on the lab
 ------------------------------------------------------------------------
 
 ## General Principles you need to know before you start
-### Physiology of signal and sorting algorithm limitations
-🔖reading list 🔖
-* this
-* this too
+## Physiology of signal and sorting algorithm limitations
+## Other Tutorials
+Spike sorting with Kilosort - Marius Pachitariu (HHMI): https://www.youtube.com/watch?v=cmrAhhquC9E&t=2s
+Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com/watch?v=N7AsWVk5JVk&t=1783s
+
 ## Setup
-### computer requirements, environments, recommendations
-### software and toolkits
-
-🔗 this stuff
-
-🔗 this stuff
-
-🔗 this stuff
-
-🏴we will use version 34875934 because blah blah but other configurations will benefit from most recent version
-
+### Kilosort
 
     
 ## Getting started with example data
-
-### blah
-* thing
-* thing
-
-  
-##  Getting started with your own data
-### considerations
