@@ -19,13 +19,11 @@ The software you need and example data are either linked to or reside on the lab
 
 Spike sorting with Kilosort - Marius Pachitariu (HHMI): https://www.youtube.com/watch?v=cmrAhhquC9E&t=2s <br>
 Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com/watch?v=N7AsWVk5JVk&t=1783s <br>
+Important spike sorting info: https://edmerix.github.io/SpikeSorting/
 
 ## Resources
 Spike sorting benchmark: https://spikeforest.flatironinstitute.org/ <br>
 Unit Quality Metrics: https://allensdk.readthedocs.io/en/latest/_static/examples/nb/ecephys_quality_metrics.html <br>
-
-
-
 
 ## Setup
 ### Kilosort
@@ -48,6 +46,7 @@ To install phy, we first need to install python. I suggest installing anaconda w
 
 > [!WARNING]
 > I have noticed that Python 12 is not compatible with the latest version of Phy (2.05). Install or change Python version to 11.0 for full functionality.
+> [!WARNING]
 > You should install KlustaKwik if you intend to use phy plugins.
 ```python
 pip install klusta klustakwik2
@@ -63,6 +62,18 @@ Phy plugins are a number of added features to the basic Phy functionality. The m
 
 CellExplorer: https://cellexplorer.org/ <br>
 Bombcell: https://github.com/Julie-Fabre/bombcell <br>
+
+## Preprocessing data for Spike Sorting
+
+Preprocessing comprises formatting data into Kilosort compatible format (binary files) and cleaning the data (e.g. removing common noise across channels).
+
+### Formatting data
+Kilosort can read a single binary file (e.g. .dat with specific precisions e.g. 16bit) which contains all channels and data points in [channel by timepoint] structure. We use Neurolynx for our wireless recordings in the lab which means that we need to convert our data from Neuralynx .ncs files to .dat file. I wrote a script that performs the data conversion `perpl_NLX2Binary`.
+
+
+### 
+Common Average Referencing: https://github.com/cortex-lab/spikes/blob/master/preprocessing/applyCARtoDat.m
+
 
 
 ## Getting started with example data
