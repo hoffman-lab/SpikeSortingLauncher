@@ -46,6 +46,7 @@ To install phy, we first need to install python. I suggest installing anaconda w
 
 > [!WARNING]
 > I have noticed that Python 12 is not compatible with the latest version of Phy (2.05). Install or change Python version to 11.0 for full functionality.
+
 > [!WARNING]
 > You should install KlustaKwik if you intend to use phy plugins.
 ```python
