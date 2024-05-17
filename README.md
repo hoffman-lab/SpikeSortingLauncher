@@ -31,9 +31,19 @@ Spike sorting with Kilosort - Marius Pachitariu (HHMI): https://www.youtube.com/
 Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com/watch?v=N7AsWVk5JVk&t=1783s <br>
 Important spike sorting info: https://edmerix.github.io/SpikeSorting/
 
-## Resources
+## External Resources
+CortexLab: https://github.com/cortex-lab <br>
 Spike sorting benchmark: https://spikeforest.flatironinstitute.org/ <br>
 Unit Quality Metrics: https://allensdk.readthedocs.io/en/latest/_static/examples/nb/ecephys_quality_metrics.html <br>
+Buzcode: https://github.com/buzsakilab/buzcode <br>
+Cell Explorer (Framework for analyzing single cells): https://cellexplorer.org/ <br>
+Bombcell (Curation of electrophysiology spike sorted units): https://github.com/Julie-Fabre/bombcell <br>
+Kilosort instructions on how to manually curate electrophysiological data using Kilosort: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/instructions.md <br>
+Special Cases and Questions for Kilosort Decisions: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/special-cases.md <br>
+Spikeanalysis (Python): https://github.com/zm711/spikeanalysis <br>
+Pynapple (PYthon Neural Analysis Package): https://github.com/pynapple-org/pynapple <br>
+
+
 
 ## Setup
 ### Kilosort
@@ -68,11 +78,6 @@ pip install klusta klustakwik2
 Github: https://github.com/petersenpeter/phy2-plugins <br>
 
 Phy plugins are a number of added features to the basic Phy functionality. The most important one is reclustering with Klusta which allows you to perform clustering on the Kilosort output in Phy.
-
-### Other packages for quality control, and extracting basic physiological features
-
-CellExplorer: https://cellexplorer.org/ <br>
-Bombcell: https://github.com/Julie-Fabre/bombcell <br>
 
 ## Preprocessing data for Spike Sorting
 
