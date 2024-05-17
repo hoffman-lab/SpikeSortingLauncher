@@ -32,15 +32,15 @@ Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com
 Important spike sorting info: https://edmerix.github.io/SpikeSorting/
 
 ## External Resources
-CortexLab: https://github.com/cortex-lab <br>
-Spike sorting benchmark: https://spikeforest.flatironinstitute.org/ <br>
-Unit Quality Metrics: https://allensdk.readthedocs.io/en/latest/_static/examples/nb/ecephys_quality_metrics.html <br>
-Buzcode: https://github.com/buzsakilab/buzcode <br>
-Cell Explorer (Framework for analyzing single cells): https://cellexplorer.org/ <br>
-Bombcell (Curation of electrophysiology spike sorted units): https://github.com/Julie-Fabre/bombcell <br>
-Kilosort instructions on how to manually curate electrophysiological data using Kilosort: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/instructions.md <br>
-Special Cases and Questions for Kilosort Decisions: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/special-cases.md <br>
-Spikeanalysis (Python): https://github.com/zm711/spikeanalysis <br>
+* CortexLab: https://github.com/cortex-lab <br>
+* Spike sorting benchmark: https://spikeforest.flatironinstitute.org/ <br>
+* Unit Quality Metrics: https://allensdk.readthedocs.io/en/latest/_static/examples/nb/ecephys_quality_metrics.html <br>
+* Buzcode: https://github.com/buzsakilab/buzcode <br>
+* Cell Explorer (Framework for analyzing single cells): https://cellexplorer.org/ <br>
+* Bombcell (Curation of electrophysiology spike sorted units): https://github.com/Julie-Fabre/bombcell <br>
+* Kilosort instructions on how to manually curate electrophysiological data using Kilosort: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/instructions.md <br>
+* Special Cases and Questions for Kilosort Decisions: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/special-cases.md <br>
+* Spikeanalysis (Python): https://github.com/zm711/spikeanalysis <br>
 Pynapple (PYthon Neural Analysis Package): https://github.com/pynapple-org/pynapple <br>
 
 
