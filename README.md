@@ -81,15 +81,97 @@ Phy plugins are a number of added features to the basic Phy functionality. The m
 
 ## Preprocessing data for Spike Sorting
 
-Preprocessing comprises formatting data into Kilosort compatible format (binary files) and cleaning the data (e.g. removing common noise across channels).
+Preprocessing comprises formatting data into Kilosort compatible format (binary files) and cleaning the data (e.g. removing common noise across channels). Kilosort can read a single binary file (e.g. .dat with specific precisions e.g. 16bit) which contains all channels and data points in [channel by timepoint] structure. If the data is already Kilosort compatible, conversions are not required. <br>
 
-### Formatting data
-Kilosort can read a single binary file (e.g. .dat with specific precisions e.g. 16bit) which contains all channels and data points in [channel by timepoint] structure. We use Neurolynx for our wireless recordings in the lab which means that we need to convert our data from Neuralynx .ncs files to .dat file. I wrote a script that performs the data conversion `perpl_NLX2Binary`.
+If the recorded data has shared artifacts across the channels, sometimes Common Average Referencing can be used to remove noise. Common Average Referencing (CAR) is a signal processing technique used in spike sorting to improve the quality of neural recordings by reducing noise. In CAR, the mean signal from all recording channels of a neural probe is calculated and then subtracted from each individual channel. This process helps to remove common noise sources, such as electrical interference and movement artifacts, that affect all channels similarly. By doing so, CAR enhances the signal-to-noise ratio, making it easier to detect and accurately sort spikes from individual neurons. This technique is particularly useful in high-density recordings where common noise can significantly impact the quality of the recorded data. <br>
+
+Matlab code for running CAR on binary data: https://github.com/cortex-lab/spikes/blob/master/preprocessing/applyCARtoDat.m
 
 
-### 
-Common Average Referencing: https://github.com/cortex-lab/spikes/blob/master/preprocessing/applyCARtoDat.m
+### Conversion Instructions for Neuralynx/Freelynx systems
+In Perpl lab, we use Neurolynx/freelynx for our wireless recordings in the lab. The primary file format used by Neuralynx is (CSC) which store continuous, raw electrophysiological data. Each CSC file corresponds to a single channel of data and includes time-stamped voltage measurements recorded from the neural probe. To spike sort the data with Kilosort, we need to create a binary file (convert our data from Neuralynx .ncs files to a single .dat file). To understand the conversion process, you need to know about what binary files are? What is the precision of a binary file? What is bitVolt? <br>
 
+<details>
+
+<summary>Binary Files</summary>
+
+# What is a Binary File?
+
+A binary file is a type of computer file that contains data in a format that is not human-readable but is meant to be interpreted by a computer program. Unlike text files, which store data in a sequence of characters that can be read as text, binary files store data in a sequence of bytes that represent binary data, such as numbers, images, audio, or any other type of raw data.
+
+## Characteristics of Binary Files
+**Format:** Binary files can contain any type of data, encoded in binary form. This could include integers, floating-point numbers, characters, and more. <br>
+**Efficiency:** They are typically more compact and efficient for storing large amounts of data because they store the raw byte representations without the need for conversion to and from text. <br>
+**Specific Use:** Often used for applications requiring precise data representation, such as executable programs, images, audio files, and scientific data.
+
+# Precision of a Binary File
+The precision of a binary file refers to how accurately the data is represented within the file. It is determined by the following factors:
+
+Data Type and Bit Depth: The type of data and the number of bits used to represent each unit of data (e.g., 8-bit, 16-bit, 32-bit, 64-bit) significantly affect precision.
+
+**Integer Precision:** For integers, precision depends on the bit depth. A 16-bit integer can represent 65,536 different values, while a 32-bit integer can represent over 4 billion values.
+Floating-Point Precision: For floating-point numbers, precision depends on the format (e.g., single precision, double precision). Single precision (32-bit) and double precision (64-bit) formats differ in how many significant digits they can represent and their range. <br>
+**File Structure:** The way data is organized in the binary file also impacts precision. For example, storing time-series data with a higher sampling rate increases temporal precision.
+
+Encoding and Representation: The method used to encode data in the file (e.g., IEEE 754 for floating-point numbers) also affects precision.
+
+# Practical Examples
+**Electrophysiological Data:** In electrophysiological recordings, the precision of the data stored in binary files is crucial. For instance, the voltage values recorded from neurons may be stored as 16-bit or 24-bit integers, affecting how finely the voltages can be distinguished. <br>
+
+**Image Files:** For image files, precision can refer to color depth. An 8-bit image can represent 256 different colors per channel, while a 24-bit image can represent over 16 million colors.
+
+# Summary
+A binary file stores data in a binary format, which is efficient and capable of representing various types of data accurately. The precision of a binary file is determined by the data type, bit depth, file structure, and encoding method, all of which define how accurately the data is represented and stored. This precision is crucial in applications requiring high data fidelity, such as scientific computing, image processing, and audio recording.
+
+</details>
+
+
+<details>
+
+<summary>Bitvolt and Precision</summary>
+
+The term "bitvolt" in electrophysiological recordings refers to the voltage representation of one bit of the analog-to-digital converter (ADC) used in the recording system. It indicates the smallest voltage difference that can be distinguished by the ADC and is crucial for understanding the precision of the recorded signals.
+
+**Bit Resolution:** The precision of an electrophysiological recording system is largely determined by the bit resolution of the ADC. Common bit resolutions are 12-bit, 16-bit, and 24-bit. Higher bit resolutions allow for more precise measurements of the signal voltage.
+
+**Voltage Range:** The total voltage range of the ADC, often referred to as the input range, is the maximum range of voltages that the ADC can convert into digital values. This range is divided into discrete steps determined by the bit resolution.
+
+**Calculation of Bitvolt:**
+```math
+\text{Bitvolt} = \frac{\text{Voltage Range}}{2^{\text{Bit Resolution}}}
+```
+
+For example, if the voltage range is ±5V (10V total) and the ADC is 16-bit, the bitvolt would be:
+
+```math
+\text{Bitvolt} = \frac{10 \text{ V}}{2^{16}} = \frac{10}{65536} \approx 0.0001526 \text{ V} = 152.6 \text{ µV}
+```
+
+**Precision:** The smaller the bitvolt value, the higher the precision of the recording system. This means the system can detect smaller changes in voltage, leading to more detailed and accurate recordings of electrophysiological signals.
+
+Practical Implications
+* Noise: Lower bitvolt values help in distinguishing the actual neural signals from background noise, improving the signal-to-noise ratio (SNR).
+* Signal Detail: Higher precision allows for better discrimination of subtle features in the neural signals, which is critical for accurate spike sorting and other analyses.
+* Dynamic Range: Systems with higher bit resolution can capture both very small and very large voltage changes, providing a broader dynamic range and reducing the likelihood of signal clipping.
+
+In summary, the bitvolt is a key parameter that determines the precision of electrophysiological recordings. It relates directly to the bit resolution and the voltage range of the recording system, with smaller bitvolt values indicating higher precision and more detailed signal representation.
+
+
+</details>
+
+I wrote a MATLAB script for converting .csc files to a single .dat file ( `perpl_NLX2Binary`). By default, I change the bitVolts to 0.195 because this is more commonly used in intan/openephys systems and allows for easier concatenation of files. Note that for concatenation, all files MUST have the same bitVolt. The script requires NLX Mex files.
+
+You can download NLX to MATLAB Import/Export MEX Files from [here](https://github.com/vandermeerlab/vandermeerlab/tree/master/code-matlab/shared/io/neuralynx) <br>
+
+
+### OpenEphys
+New versions of OpenEphys allow for storing the data directly in [binary formats (.dat)](https://open-ephys.github.io/gui-docs/User-Manual/Recording-data/Binary-format.html). So unless you need to change the bitVolts or truncate the data, you don't have to run conversions on OpenEphys files for Kilosort spike sorting.
+
+
+### View binary data
+NeuroScope is an advanced viewer for neurophysiological and behavioral data: it can display local field potentials (LFPs), neuronal spikes, and behavioral events. It also features limited editing capabilities.
+
+Download: https://neurosuite.sourceforge.net/
 
 
 ## Getting started with example data
