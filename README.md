@@ -184,6 +184,59 @@ Download: https://neurosuite.sourceforge.net/
 ## Getting started with example data
 
 ### Edit the config file with desired parameters
+In Kilosort, a config file refers to a configuration script or parameters file for defining the parameters and settings used during the spike sorting process. This file allows users to customize various aspects of Kilosort's operation to suit specific datasets or experimental conditions. 
+
+[Overview of how KiloSort uses the settings](https://github.com/cortex-lab/KiloSort/wiki/Config-Variables)
+
+Some of these parameters have not been explained on the above github page. I will try to best explain them here:
+
+
+<details>
+
+<summary>**initialize**</summary>
+
+In Kilosort, the initialize parameter determins how the algorithm starts the sorting process, which can impact the efficiency and accuracy of the final spike sorting results. Here’s a closer look at the options available for the initialize parameter in Kilosort and what they signify:
+
+'fromData': When set to 'fromData', Kilosort initializes the sorting process by using the actual recorded data to form initial clusters or templates. This involves detecting spikes in the raw data, grouping them based on their shapes and amplitudes, and forming initial templates. This method is data-driven and can adapt well to the specific characteristics of the dataset.
+
+'no': Setting the initialize parameter to 'no' means that Kilosort will not perform any initial clustering based on the raw data. Instead, it relies on a different approach using default provided templates, to start the sorting process. This option might be used in scenarios where there is prior knowledge about the spike shapes or when re-sorting data using previously validated templates.
+
+The choice of initialization method can depend on several factors, including the quality of the recording, the expected variability of spike shapes, and specific research needs. Proper initialization can significantly enhance the sorting quality by accurately capturing the diverse spike waveforms present in the data, which are critical for reliable neuron identification and activity analysis.
+
+</details>
+
+
+
+<details>
+
+<summary>**Thresholds**</summary>
+
+Kilosort 1 requires threshold values for several steps of the spike sorting which sometimes can be confusing. Here's a list:
+
+**spkTh - Threshold for Identifying Spikes to Make Templates**
+If initialize='fromData', KiloSort uses this threshold to identify a set of sample waveforms, these are then projected onto the PCs and are clustered using k-means. Each cluster is used to generate a 'template', this becomes the set of initialisation templates that KiloSort subsequently uses.
+
+**Th - Threshold for Comparing Spike to Template**
+KiloSort projects a candidate spike waveform onto each template to assess how much of the variance of that spike in the waveform can be explained by the template. This threshold allows sets how much of the variance needs to be explained to consider the waveform part of the template. In other words, the threshold is for how much variance is allowed around the template, a small value indicates a large amount of variance is allowed - allowing this template's cluster to accumulate more waveforms that vary from the template. There are 3 elements. The first 2 elements are used to create a linspace() between anneal 1 and the anneal final (nannealpasses*NBatch). e.g. 1 and 5 for 10 anneals: linspace(1,5,10). This effectively creates an increasingly harder threshold to cross for each anneal pass. The final element is used during the final template matching pass - i.e. the pass that goes through each batch sequentially and performs parallel matching.
+
+
+**lam - Penalty for Amplitudes Different to the Template**
+A large value of lam means that if the template needs to be scaled to match the candidate waveform, there is a large penalty associated with that. The penalty is referring to the value of similarity between the waveform and the template, hence a large penalty will cause a reduction in the similarity value. The threshold for similarity is set by Th.
+
+</details>
+
+
+
+<details>
+
+<summary>**Nfilt - Starting Number of Clusters**</summary>
+
+The core algorithm of Kilosort 1 clustering is scaled k-means. K-means clustering requires an estimate of the number of clusters for the initial clustering.
+
+Nfilt sets the target number of clusters to find. This mean the output (before any auto-merging) will usually have this many clusters, but if shuffle_clusters = 1, you may find the final number of clusters deviates from this value. Typically you want this variable to be 4-8 times the number of recording sites (i.e. channels, Nchan) you have. However, the lower the input impedance of your recording sites, the lower you can set this value. A low input impedance indicates that you will still receive large amplitude signals relatively further away from the recording site, hence if all your recording sites were low impedance you might find that they essentially record the same signal - KiloSort will therefore not be able to cluster signals base on a waveform signature that spans multiple channels.
+
+</details>
+
 
 ### Generate a channel map file for your probe
 A channel map in Kilosort refers to a configuration that defines the layout of electrodes used in the recording. Creating an accurate channel map is essential for effective data analysis in Kilosort, as it directly influences the quality of spike detection and sorting results. Channel map is a .mat file which includes several types of information saved in matlab variables.
@@ -191,7 +244,7 @@ A channel map in Kilosort refers to a configuration that defines the layout of e
 1. **chanMap** and **chanMap0ind**: The channel map specifies the physical arrangement of the electrodes in the recording device. This is crucial because the spatial relationships between electrodes can affect the sorting algorithms' ability to accurately attribute spikes to specific neurons. In some setups, not all channels of a recording device may be used, or there might be a need to reorder them according to specific experimental designs. The channel map allows users to define active channels and possibly ignore others that are not used or are noisy.
 The difference between chanMap and chanMap0ind is in indexing. Matlab starts indexing from 1 and Python from 0.
 
-3. **Geometry Information**: The xcoords and ycoords variables include the x and y coordinates of each electrode, which helps the phy visualization software to understand which electrodes are close to each other.
+3. **Geometry Information**: The xcoords and ycoords variables include the x and y coordinates of each electrode, which helps the phy visualization software to understand which electrodes are close to each other. These variables are for visualization only and shouldn't affect the results of the spike sorting.
 
 4. **connected**: This logical variable indicates which channels must be used for spike sorting. In cases where you'd like to exclude some channels to due high level of noise, or would like to run a partial spike sorting on some but not all channels you can modify this variable. To include channels, assign logical value True (or 1) to the corresponding channel index.
 
@@ -203,9 +256,18 @@ The difference between chanMap and chanMap0ind is in indexing. Matlab starts ind
 
 
 
+## Known issues about Kilosort 1 clustering
+[Spike holes: Spikes within the batching edges are not detected #594](https://github.com/MouseLand/Kilosort/issues/594)
 
 
+### Double-counted spikes
+[Double-counted spikes](https://github.com/MouseLand/Kilosort/issues/29)
 
+Kilosort begins by detecting potential spikes from the raw data and forming initial templates, which are average waveforms representing common spike shapes detected across the channels. Detected spikes are assigned to the most similar template based on their shapes and amplitudes. After spikes are detected and assigned to templates, Kilosort calculates the residual signal. This residual is obtained by subtracting the contributions of the detected spikes (as represented by the templates) from the original data. Essentially, the residual signal represents what is left of the data after removing the parts that have been accounted for by the currently identified spikes and their templates. Kilosort then processes the residual signal to detect additional spikes. This step is crucial because some spikes may initially be obscured by larger, overlapping spikes. By removing the influence of the already detected spikes, the algorithm can more clearly see other spikes that were previously hidden in the noise or masked by dominant spikes. The process of assigning spikes to templates, calculating the residual, and detecting new spikes in the residual signal is repeated iteratively. With each iteration, the templates are updated to better fit the spikes assigned to them, and the residual is recalculated to reflect the most recent subtractions. By repeatedly updating the templates and recalculating the residuals, Kilosort ensures that even spikes that are temporally overlapping or of lower amplitude are detected and correctly attributed. This iterative refinement helps in minimizing the noise and improving the overall accuracy of the spike sorting process. Residual subtraction is thus a powerful technique in the Kilosort algorithm that enhances its ability to accurately sort spikes by continuously refining the signal representation. This method is particularly beneficial in dense, high-channel-count recordings where neuronal spikes frequently overlap, making traditional spike detection methods less effective.
+
+However, this method comes with its own drawbacks. In situation where the recording contains very large spikes, a residual after template subtraction can be detected again as a separate cluster. This results in double counting the same spikes. In cases when this happens, it is easy to check for it in the crosscorrelograms (CCGs). The CCGs would show a large peak at 0 latency.
+
+I modified a code from Adrian Bondy ('remove_ks1_duplicate_spikes') that takes the kilosort2 output rez and identifies pair of spikes that are close together in time and space.
 
 
 
