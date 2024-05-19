@@ -22,6 +22,12 @@ Kilosort and several other recently developed spike sorting algorithms use templ
 ## Physiology of signal and sorting algorithm limitations
 
 ## Articles
+[Spike sorting](https://www.cell.com/current-biology/pdf/S0960-9822(11)01254-1.pdf)
+[Spike sorting: new trends and challenges of the era of high-density probes](https://iopscience.iop.org/article/10.1088/2516-1091/ac6b96/meta)
+[Kilosort: realtime spike-sorting for extracellular electrophysiology with hundreds of channels](https://www.biorxiv.org/content/10.1101/061481v1.abstract)
+[Solving the spike sorting problem with Kilosort](https://www.biorxiv.org/content/10.1101/2023.01.07.523036v1.abstract)
+[Spike sorting with Kilosort4](https://www.nature.com/articles/s41592-024-02232-7)
+[A spike sorting toolbox for up to thousands of electrodes validated with ground truth recordings in vitro and in vivo](https://elifesciences.org/articles/34518)
 [How Do Spike Collisions Affect Spike Sorting Performance?](https://www.eneuro.org/content/9/5/ENEURO.0105-22.2022.abstract)
 
 
@@ -30,6 +36,7 @@ Kilosort and several other recently developed spike sorting algorithms use templ
 Spike sorting with Kilosort - Marius Pachitariu (HHMI): https://www.youtube.com/watch?v=cmrAhhquC9E&t=2s <br>
 Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com/watch?v=N7AsWVk5JVk&t=1783s <br>
 Important spike sorting info: https://edmerix.github.io/SpikeSorting/
+
 
 ## External Resources
 * CortexLab: https://github.com/cortex-lab <br>
@@ -175,3 +182,33 @@ Download: https://neurosuite.sourceforge.net/
 
 
 ## Getting started with example data
+
+### Edit the config file with desired parameters
+
+### Generate a channel map file for your probe
+A channel map in Kilosort refers to a configuration that defines the layout of electrodes used in the recording. Creating an accurate channel map is essential for effective data analysis in Kilosort, as it directly influences the quality of spike detection and sorting results. Channel map is a .mat file which includes several types of information saved in matlab variables.
+
+1. **chanMap** and **chanMap0ind**: The channel map specifies the physical arrangement of the electrodes in the recording device. This is crucial because the spatial relationships between electrodes can affect the sorting algorithms' ability to accurately attribute spikes to specific neurons. In some setups, not all channels of a recording device may be used, or there might be a need to reorder them according to specific experimental designs. The channel map allows users to define active channels and possibly ignore others that are not used or are noisy.
+The difference between chanMap and chanMap0ind is in indexing. Matlab starts indexing from 1 and Python from 0.
+
+3. **Geometry Information**: The xcoords and ycoords variables include the x and y coordinates of each electrode, which helps the phy visualization software to understand which electrodes are close to each other.
+
+4. **connected**: This logical variable indicates which channels must be used for spike sorting. In cases where you'd like to exclude some channels to due high level of noise, or would like to run a partial spike sorting on some but not all channels you can modify this variable. To include channels, assign logical value True (or 1) to the corresponding channel index.
+
+5. **kcoords**: This variable stores the shank number. This is useful in cases where you have simultaneous recordings using multiple probes and stored all of the files in 1 file but they are in different brain areas so their spike sorting must be separate. You can assign differen numerical values to groups of channels that coorespond to each single probe.
+
+6. **name** and **fs**: name species the name of the channel map you chose for your file and fs is the sampling frequency of your recording.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
