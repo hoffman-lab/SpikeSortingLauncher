@@ -46,10 +46,10 @@ Important spike sorting info: https://edmerix.github.io/SpikeSorting/
 * Cell Explorer (Framework for analyzing single cells): https://cellexplorer.org/ <br>
 * Bombcell (Curation of electrophysiology spike sorted units): https://github.com/Julie-Fabre/bombcell <br>
 * Kilosort instructions on how to manually curate electrophysiological data using Kilosort: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/instructions.md <br>
+* Kilosort Tools from Mizuseki Lab: https://github.com/Mizuseki-Lab/kilosort-tools/tree/master
 * Special Cases and Questions for Kilosort Decisions: https://github.com/singerlabgt/kilosort2-pipeline/blob/master/tutorial/special-cases.md <br>
 * Spikeanalysis (Python): https://github.com/zm711/spikeanalysis <br>
-Pynapple (PYthon Neural Analysis Package): https://github.com/pynapple-org/pynapple <br>
-
+* Pynapple (PYthon Neural Analysis Package): https://github.com/pynapple-org/pynapple <br>
 
 
 ## Setup
@@ -257,8 +257,9 @@ The difference between chanMap and chanMap0ind is in indexing. Matlab starts ind
 
 
 ## Known issues about Kilosort 1 clustering
-[Spike holes: Spikes within the batching edges are not detected #594](https://github.com/MouseLand/Kilosort/issues/594)
 
+### Spike holes
+[Spike holes: Spikes within the batching edges are not detected #594](https://github.com/MouseLand/Kilosort/issues/594)
 
 ### Double-counted spikes
 [Double-counted spikes](https://github.com/MouseLand/Kilosort/issues/29)
@@ -268,6 +269,25 @@ Kilosort begins by detecting potential spikes from the raw data and forming init
 However, this method comes with its own drawbacks. In situation where the recording contains very large spikes, a residual after template subtraction can be detected again as a separate cluster. This results in double counting the same spikes. In cases when this happens, it is easy to check for it in the crosscorrelograms (CCGs). The CCGs would show a large peak at 0 latency.
 
 I modified a code from Adrian Bondy ('remove_ks1_duplicate_spikes') that takes the kilosort2 output rez and identifies pair of spikes that are close together in time and space.
+
+
+### Over-merging
+[ops.splitT and ops.mergeT and other parameters #68](https://github.com/cortex-lab/KiloSort/issues/68)
+
+After initiaial clustering, Kilosort runs a posthoc merging algorithm ('merge_posthoc2') to group clusters that are similar. I wouldn't recommend the use of this algorithm. I deactivated it in my pipeline. Although, it will add more work to the manual clustering part, it worth the effort.
+
+### Classifying complex spikes into multiple clusters
+[Electrophysiological characteristics of hippocampal complex-spike cells and theta cells](https://link.springer.com/article/10.1007/BF00238898)
+
+Complex spikes are spontaneous bursts of about 2-10 action potentials of decreasing amplitude and increasing duration recorded extracellularly, with very short interspike intervals. The decreasing amplitude nature of complex spikes make them a difficult case for spike sorting algorithms that work solely based on waveform. Sometimes, the smaller amplitude spikes during a complex spike which is emitted by a single cell are classified incorrectly into multiple clusters. Such cases can be identified using assymetric CCGs between clusters of the same channel and also viewing example spikes on the phy trace view. The rate of this error in clustering will depend on the parameters of the spike sorting especially lam and Th. It is always best to have stringent criteria and merge posthoc.
+
+
+### Noisy clusters
+[Noisy clusters #80](https://github.com/cortex-lab/KiloSort/issues/80)
+
+### Missing spikes #160
+[Missing spikes #160](https://github.com/cortex-lab/KiloSort/issues/160)
+
 
 
 
