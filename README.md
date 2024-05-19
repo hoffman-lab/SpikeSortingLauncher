@@ -193,7 +193,7 @@ Some of these parameters have not been explained on the above github page. I wil
 
 <details>
 
-<summary>**initialize**</summary>
+<summary>initialize</summary>
 
 In Kilosort, the initialize parameter determins how the algorithm starts the sorting process, which can impact the efficiency and accuracy of the final spike sorting results. Here’s a closer look at the options available for the initialize parameter in Kilosort and what they signify:
 
@@ -209,7 +209,7 @@ The choice of initialization method can depend on several factors, including the
 
 <details>
 
-<summary>**Thresholds**</summary>
+<summary>Thresholds</summary>
 
 Kilosort 1 requires threshold values for several steps of the spike sorting which sometimes can be confusing. Here's a list:
 
@@ -229,7 +229,7 @@ A large value of lam means that if the template needs to be scaled to match the 
 
 <details>
 
-<summary>**Nfilt - Starting Number of Clusters**</summary>
+<summary>Nfilt - Starting Number of Clusters</summary>
 
 The core algorithm of Kilosort 1 clustering is scaled k-means. K-means clustering requires an estimate of the number of clusters for the initial clustering.
 
