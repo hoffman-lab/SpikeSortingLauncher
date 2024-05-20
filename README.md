@@ -23,19 +23,21 @@ Kilosort and several other recently developed spike sorting algorithms use templ
 
 ## Articles
 * [Spike sorting](https://www.cell.com/current-biology/pdf/S0960-9822(11)01254-1.pdf)<br>
+* [Chapter 1 - Spike Sorting](https://neurophysics.ucsd.edu/publications/obd_ch3_2.pdf)<br>
 * [Spike sorting: new trends and challenges of the era of high-density probes](https://iopscience.iop.org/article/10.1088/2516-1091/ac6b96/meta)<br>
 * [Kilosort: realtime spike-sorting for extracellular electrophysiology with hundreds of channels](https://www.biorxiv.org/content/10.1101/061481v1.abstract)<br>
 * [Solving the spike sorting problem with Kilosort](https://www.biorxiv.org/content/10.1101/2023.01.07.523036v1.abstract)<br>
 * [Spike sorting with Kilosort4](https://www.nature.com/articles/s41592-024-02232-7)<br>
 * [A spike sorting toolbox for up to thousands of electrodes validated with ground truth recordings in vitro and in vivo](https://elifesciences.org/articles/34518)<br>
 * [How Do Spike Collisions Affect Spike Sorting Performance?](https://www.eneuro.org/content/9/5/ENEURO.0105-22.2022.abstract)<br>
+* [Spike sorting: the overlapping spikes challenge](https://www.degruyter.com/document/doi/10.1515/cdbme-2015-0011/html?lang=en)<br>
 
 
 ## Tutorials
 
 * Spike sorting with Kilosort - Marius Pachitariu (HHMI): https://www.youtube.com/watch?v=cmrAhhquC9E&t=2s <br>
 * Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com/watch?v=N7AsWVk5JVk&t=1783s <br>
-* Important spike sorting info: https://edmerix.github.io/SpikeSorting/
+* Important spike sorting info: https://edmerix.github.io/SpikeSorting/ <br>
 
 
 ## External Resources
@@ -252,6 +254,22 @@ The difference between chanMap and chanMap0ind is in indexing. Matlab starts ind
 
 6. **name** and **fs**: name species the name of the channel map you chose for your file and fs is the sampling frequency of your recording.
 
+
+## Manual Curation
+
+Manual curation in spike sorting refers to the process where a user manually reviews and adjusts the results of an automated spike sorting algorithm. During manual curation, the researcher examines the spike waveforms and their alignment to templates, checks the consistency of spike timings and shapes, and possibly reassigns or removes misclassified spikes. This process helps to correct errors that automatic algorithms might miss, especially in complex recordings with overlapping spikes or varying signal qualities. This step is essential for ensuring accuracy in the identification and classification of neural spikes. During manual curation 
+
+In manual curation of spike sorting, the two major processes involved are splitting and merging. Typically, the decision to merge is more straightforward than splitting, so it is beneficial to set the parameters of Kilosort such that it oversplit than overmerge.
+
+A general overview of the Phy's available tools for manual curation can be found here: https://phy.readthedocs.io/en/latest/clustering/. In the following section, I will go over more details of when to split or merge.
+
+### Split
+In the context of manual curation during spike sorting, "splitting" refers to the process of dividing a cluster of spikes that has been incorrectly grouped together into multiple, more homogeneous groups. This occurs when the automated spike sorting algorithm groups together spikes that are actually from different neurons. The curator manually examines these clusters and, using their knowledge of neuron physiology and spike shapes, reassigns spikes to new clusters that more accurately reflect the distinct neural sources. This enhances the accuracy of neuron identification and the overall reliability of the spike sorting process.
+
+### Merge
+In manual curation of spike sorting, "merging" refers to the process of combining multiple spike clusters that have been incorrectly separated into a single, more accurate cluster. This typically occurs when an automated sorting algorithm divides spikes from the same neuron into different groups due to slight variations in spike shapes or overlapping signals. During manual curation, the user examines these separate clusters and, if they determine that they likely originate from the same neuron, merges them to improve the accuracy of the neuronal identification. This helps in reducing fragmentation of spike data and ensures more reliable analysis of neural activity.
+
+### To merge or to split? Manual Clustering Practical User's Guide
 
 
 
