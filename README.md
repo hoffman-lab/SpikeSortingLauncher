@@ -271,6 +271,60 @@ In manual curation of spike sorting, "merging" refers to the process of combinin
 
 ### To merge or to split? Manual Clustering Practical User's Guide
 
+Manual curation should be considered a multiple-criteria decision process, where the reviewer inspects multiple lines of evidence to decide whether to merge, split, or keep as is. Some of the most informative Phy panels for making this decision are:
+
+
+<details>
+
+<summary>Waveform view</summary>
+
+This view shows the waveforms of a selection of spikes, on the relevant channels (based on amplitude and proximity to the peak waveform amplitude channel).
+
+You should consider splitting a cluster based on the waveform view in spike sorting when you observe distinct patterns or variations within the waveforms that suggest they might not all originate from the same neuron. Indicators for splitting include noticeable differences in waveform shape, amplitude, or other key features that are consistent within subsets of the cluster but different between these subsets. To make a decision to split, you can compare the average waveform of the unit with the template waveform. Sometimes, it is obvious that some of the single waveforms of the unit are different from the template. Such observations can make a case for splitting. 
+
+You should consider merging clusters based on the waveform view in spike sorting when the waveforms in different clusters appear similar in shape, amplitude, duration, and other waveform features, suggesting they are likely from the same neuron. Merging is appropriate when there is minimal variation across these parameters, indicating a common origin, which helps in accurately capturing the activity of a single neuron. In high-density probes, the waveform of a single neuron might span multiple channels; the recorded waveform on all of these channels MUST be considered for a decision to merge. For example suppose we have two clusters with identical mean and single waveforms on channel 30, however, their waveforms on channel 29 is distinctly different. You should not merge solely based on the identical waveform on a single channel.
+
+Due to sudden drift of the probe during the experiment or manual adjustment of the probe depth in acute setup, it is possible that the still active neurons shift their location to a new set of channels. For example, a unit with the largest amplitude previously on channel 30 might abrubtly shift to channel 29. In such cases, you need to inspect the waveform but also note other criteria (e.g. CCGs, firing patterns, FR, ...) to see if you should merge them.
+
+More subtle drift can cause amplitude flactuations in recorded neurons (it would be like moving a microphone around when a speaker is talking so the volume of the recorded sound will vary during the session). Thus, amplitude differences alone should not be considered sufficient criteria for merging or splitting.
+
+As disucssed before, spikes in a burst might also have different amplitudes which is noticeable on the waveform view. For these cases, it is best to check multiple examples on the trace view to make sure that the smaller amplitude spikes indeed belong to the larger amplitude unit, and merge.
+
+<details>
+
+
+<details>
+
+<summary>Correlogram view</summary>
+
+This view shows the autocorrelograms and cross-correlograms between all pairs of selected clusters.
+
+Autocorrelograms and ISI distributions are crucial in spike sorting because they provide a graphical representation of the temporal correlation of a neuron's spike firing over time, showing how often a neuron fires at specific intervals. They help in identifying and confirming the physiological properties of neurons, such as refractory periods and burst patterns. Inter-spike-interval (ISI) violations are a classic measure of unit contamination. Because all neurons have a biophysical refractory period, we can assume that any spikes occurring in rapid succession (<1.5-3 ms intervals - differs based on the area of recording) come from two different neurons. In ideal cases, a clean unit must show no contamination at around 0ms.
+
+Cross-correlograms (CCGs) are used to display the temporal correlations between spikes from two different neurons. CCGs measure the likelihood of one neuron firing in relation to the firing of another over varying time lags. This can reveal synaptic connections, such as excitatory or inhibitory influences between neurons, as well as common input from other sources. Essentially, CCGs help identify functional relationships and interactions between neurons, providing insights into the network dynamics within the recorded neural population. In spike sorting, CCGs can be used to make a decision for splitting or merging. Broadly speaking, CCGs between two neurons around 0ms latency can fall within one of 3 patters:
+
+* Showing a peak: This can be an indication of true interaction between the two neurons (e.g. cofiring, or synaptic connectivity), or can be caused due to the artifactual double spike counting described previously. If other metrics (e.g. waveform shape across channels - should not rely too much on the amplitude though) are different between the two neurons, you may assume that the relationship is genuine. Otherwise, you may need to consider an artifactual effect. If the units are on the same channel and the peak latency is 0, check the trace view to see if the spikes are occuring mostly (doesn't have to be always) at the same time. Because it is impossible to record two different units on the same channel at the same times, you may conclude that co-occurence is artifactual.
+
+* Showing a trough: a trough might be due to genuine inhibitory/suppression relationship between the two units (e.g. one inhibits the other) or be caused by incorrect oversplitting.
+
+* CCG shows a uniform distribution with no peaks or troughs: This is what you should mostly expect to see during the spike sorting process which means that the sorted units do not have any relationships together.
+
+<details>
+
+
+
+<details>
+
+<summary>Amplitude view</summary>
+
+This view shows the amplitude of a selection of spikes belonging to the selected clusters, along with vertical histograms on the right. The distribution of the spike amplitudes can be used to assess the quality of the spike sorting parameters and also for split/merge decision. 
+
+In many cases, spike amplitudes of a healthy good stable cluster must follow a Gaussian distribution with spikes durign the whole recording session. In cases, where the units have amplitude distributions with cut-offs on the smaller tail, it mgiht indicate that you have missed spikes of that unit due to a large threshold for automated spike sorting. If you have a lot of these examples, you should consider re-running the spike sorting with lower thresholds. Units with heavy-tails might indicate a bursting unit. If you have a unit with cutoffs on the larger tail, this might indicate an incorrect oversplitting. You should find the similar match clusters for merging.
+
+Amplitude values across time can also be informative to make a decision about the stability of a unit. If the unit drifts across time, you would see amplitude fluctuations (e.g. like a wave). Sometimes due to abrupt major drifts you might lose a unit in which case the amplitude view will show spikes up to a time point. Or it might be that the units amplitude has changed and thus the cluster has been split in two. Usually, in these case, you might find another cluster that shwos spikes right after the end of the previous cluster but with shifts in amplitude.
+
+<details>
+
 
 
 
