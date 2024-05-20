@@ -328,9 +328,15 @@ Amplitude values across time can also be informative to make a decision about th
 
 ## Decision Examples
 
+<details>
+
+<summary>Incorrect oversplit of a drifting unit</summary>
+
 ![image (48)](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/48d63da4-5d18-4080-8975-866e9337df20)
 
 This is an example of a drifting unit that was split into 2 clusters during the automated spike sorting process. Note how waveforms on channel 10 and 11 have minor differences in amplitude. Also see the amplitude view for how the blue unit is drifting. The ACG of the separated units are very similar and the CCG shows a dip at 0ms latency. All of these factors indicate that we have one unit that has been mistakenly split into 2. So I'd merge these two clusters into one.
+
+</details>
 
 
 
