@@ -290,7 +290,7 @@ More subtle drift can cause amplitude flactuations in recorded neurons (it would
 
 As disucssed before, spikes in a burst might also have different amplitudes which is noticeable on the waveform view. For these cases, it is best to check multiple examples on the trace view to make sure that the smaller amplitude spikes indeed belong to the larger amplitude unit, and merge.
 
-<details>
+</details>
 
 
 <details>
@@ -309,7 +309,7 @@ Cross-correlograms (CCGs) are used to display the temporal correlations between 
 
 * CCG shows a uniform distribution with no peaks or troughs: This is what you should mostly expect to see during the spike sorting process which means that the sorted units do not have any relationships together.
 
-<details>
+</details>
 
 
 
@@ -323,7 +323,7 @@ In many cases, spike amplitudes of a healthy good stable cluster must follow a G
 
 Amplitude values across time can also be informative to make a decision about the stability of a unit. If the unit drifts across time, you would see amplitude fluctuations (e.g. like a wave). Sometimes due to abrupt major drifts you might lose a unit in which case the amplitude view will show spikes up to a time point. Or it might be that the units amplitude has changed and thus the cluster has been split in two. Usually, in these case, you might find another cluster that shwos spikes right after the end of the previous cluster but with shifts in amplitude.
 
-<details>
+</details>
 
 
 
