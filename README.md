@@ -332,9 +332,48 @@ Amplitude values across time can also be informative to make a decision about th
 
 <summary>Incorrect oversplit of a drifting unit</summary>
 
-![image (48)](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/48d63da4-5d18-4080-8975-866e9337df20)
+![UltimatePhotoEditor_2024_05_20_03_20_34](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/7cd98139-0722-4b02-b4be-c4f20f84bd4b)
 
 This is an example of a drifting unit that was split into 2 clusters during the automated spike sorting process. Note how waveforms on channel 10 and 11 have minor differences in amplitude. Also see the amplitude view for how the blue unit is drifting. The ACG of the separated units are very similar and the CCG shows a dip at 0ms latency. All of these factors indicate that we have one unit that has been mistakenly split into 2. So I'd merge these two clusters into one.
+
+</details>
+
+
+
+<details>
+
+<summary>Incorrect oversplit of a drifting unit - 2</summary>
+
+![UltimatePhotoEditor_2024_05_20_03_18_32](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/8192d851-0d7b-498f-a81a-60237cd74071)
+
+</details>
+
+
+<details>
+
+<summary>Split a contaminated cluster</summary>
+
+![UltimatePhotoEditor_2024_05_20_03_24_09](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/e29bc2db-5c03-4328-89b1-920113d88956)
+![UltimatePhotoEditor_2024_05_20_03_23_28](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/80b9b320-a913-4963-a79c-8177b02ba276)
+![UltimatePhotoEditor_2024_05_20_03_23_48](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/20fc94a9-b4ea-49fc-8149-dad0c229e4b6)
+
+The first 2 images show the 2 clusters that were sorted by Kilosort 1. By inspecting the distribution of spikes on the Feature view, we can notice that the cluster might be contaminated and thus a case for further splitting. I used Klusta plugin on Phy to recluster these clusters. Figure 3 shows the result of this reclustering. You can see that reclustering actually brings out clusters that might be considered different.
+
+</details>
+
+
+
+<details>
+
+<summary>Split a contaminated cluster 2 - Iterative process</summary>
+
+![UltimatePhotoEditor_2024_05_20_03_33_27](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/cf8ab2e0-3da8-4bfe-9c4d-d5d18b7c8699)
+![UltimatePhotoEditor_2024_05_20_03_33_45](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/c6e1e5bf-0b64-4635-a176-3451dd40a5d5)
+![UltimatePhotoEditor_2024_05_20_03_34_07](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/6743fb5f-4b20-46a5-a401-ecacce572eca)
+![UltimatePhotoEditor_2024_05_20_03_34_26](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/7b054747-5f50-4c9c-8bad-d55201d915fb)
+![UltimatePhotoEditor_2024_05_20_03_34_57](https://github.com/hoffman-lab/SpikeSortingLauncher/assets/41991280/2f8ba5a5-4643-4a2a-87d7-2d76fb50455d)
+
+Reclustering the above resulted in 9-10 new clusters, some of them were good and some were still bimodal. I used Kmeans clustering to clean the contaminated ones. After iterative reculustering with Klusta and Kmeans and merging, we get the result on the last figure. 
 
 </details>
 
