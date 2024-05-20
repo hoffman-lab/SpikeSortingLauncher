@@ -326,6 +326,10 @@ Amplitude values across time can also be informative to make a decision about th
 </details>
 
 
+## Decision Examples
+
+
+
 
 
 ## Known issues about Kilosort 1 clustering
