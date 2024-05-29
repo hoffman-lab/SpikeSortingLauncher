@@ -21,17 +21,14 @@ Kilosort and several other recently developed spike sorting algorithms use templ
 
 ## Physiology of signal and sorting algorithm limitations
 
-## Articles
+## Key Reading
 * [Spike sorting](https://www.cell.com/current-biology/pdf/S0960-9822(11)01254-1.pdf)<br>
 * [Chapter 1 - Spike Sorting](https://neurophysics.ucsd.edu/publications/obd_ch3_2.pdf)<br>
 * [Spike sorting: new trends and challenges of the era of high-density probes](https://iopscience.iop.org/article/10.1088/2516-1091/ac6b96/meta)<br>
 * [Kilosort: realtime spike-sorting for extracellular electrophysiology with hundreds of channels](https://www.biorxiv.org/content/10.1101/061481v1.abstract)<br>
 * [Solving the spike sorting problem with Kilosort](https://www.biorxiv.org/content/10.1101/2023.01.07.523036v1.abstract)<br>
 * [Spike sorting with Kilosort4](https://www.nature.com/articles/s41592-024-02232-7)<br>
-* [A spike sorting toolbox for up to thousands of electrodes validated with ground truth recordings in vitro and in vivo](https://elifesciences.org/articles/34518)<br>
-* [How Do Spike Collisions Affect Spike Sorting Performance?](https://www.eneuro.org/content/9/5/ENEURO.0105-22.2022.abstract)<br>
-* [Spike sorting: the overlapping spikes challenge](https://www.degruyter.com/document/doi/10.1515/cdbme-2015-0011/html?lang=en)<br>
-
+*refer to Further Reading below*
 
 ## Tutorials
 
@@ -420,8 +417,19 @@ see also:
 ### Missing spikes #160
 [Missing spikes #160](https://github.com/cortex-lab/KiloSort/issues/160)
 
+## Further Reading
+* [Spike sorting](https://www.cell.com/current-biology/pdf/S0960-9822(11)01254-1.pdf)<br>
+* [Chapter 1 - Spike Sorting](https://neurophysics.ucsd.edu/publications/obd_ch3_2.pdf)<br>
+* [Spike sorting: new trends and challenges of the era of high-density probes](https://iopscience.iop.org/article/10.1088/2516-1091/ac6b96/meta)<br>
+* [Kilosort: realtime spike-sorting for extracellular electrophysiology with hundreds of channels](https://www.biorxiv.org/content/10.1101/061481v1.abstract)<br>
+* [Solving the spike sorting problem with Kilosort](https://www.biorxiv.org/content/10.1101/2023.01.07.523036v1.abstract)<br>
+* [Spike sorting with Kilosort4](https://www.nature.com/articles/s41592-024-02232-7)<br>
+* [A spike sorting toolbox for up to thousands of electrodes validated with ground truth recordings in vitro and in vivo](https://elifesciences.org/articles/34518)<br>
+* [How Do Spike Collisions Affect Spike Sorting Performance?](https://www.eneuro.org/content/9/5/ENEURO.0105-22.2022.abstract)<br>
+* [Spike sorting: the overlapping spikes challenge](https://www.degruyter.com/document/doi/10.1515/cdbme-2015-0011/html?lang=en)<br>
 
-
+history of multichannel sorting use and benefits:
+* [Tetrode recording improves unit isolation and yield](https://doi.org/10.1016/0165-0270(95)00085-2)
 
 
 
