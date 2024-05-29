@@ -396,14 +396,22 @@ I modified a code from Adrian Bondy ('remove_ks1_duplicate_spikes') that takes t
 
 
 ### Over-merging
-[ops.splitT and ops.mergeT and other parameters #68](https://github.com/cortex-lab/KiloSort/issues/68)
+[ops.splitT and ops.mergeT and other parameters](https://github.com/cortex-lab/KiloSort/issues/68)
 
 After initiaial clustering, Kilosort runs a posthoc merging algorithm ('merge_posthoc2') to group clusters that are similar. I wouldn't recommend the use of this algorithm. I deactivated it in my pipeline. Although, it will add more work to the manual clustering part, it worth the effort.
 
-### Classifying complex spikes into multiple clusters
-[Electrophysiological characteristics of hippocampal complex-spike cells and theta cells](https://link.springer.com/article/10.1007/BF00238898)
+### Erroneous splitting due to biophysical changes in waveform
 
-Complex spikes are spontaneous bursts of about 2-10 action potentials of decreasing amplitude and increasing duration recorded extracellularly, with very short interspike intervals. The decreasing amplitude nature of complex spikes make them a difficult case for spike sorting algorithms that work solely based on waveform. Sometimes, the smaller amplitude spikes during a complex spike which is emitted by a single cell are classified incorrectly into multiple clusters. Such cases can be identified using assymetric CCGs between clusters of the same channel and also viewing example spikes on the phy trace view. The rate of this error in clustering will depend on the parameters of the spike sorting especially lam and Th. It is always best to have stringent criteria and merge posthoc.
+[Pyramidal cell burst spikes i.e. complex spikes show decremental amplitude](https://doi.org/10.1016/S0165-0270(99)00124-7)
+
+Complex spikes are spontaneous bursts of about 2-10 action potentials with very short interspike intervals. The decreasing amplitude of spikes in a burst make them a difficult case for spike sorting algorithms that work solely based on waveform, especially from a single channel source. The smaller amplitude spikes occurring at the tail of a complex spike can be split as a separate, smaller, cell from the leading spikes. Such cases can be visualized as assymetric CCGs between clusters of the same channel and also viewing example spikes on the phy trace view. The rate of this error in clustering will depend on the parameters of the spike sorting especially lam and Th. It is always best to have stringent criteria and merge posthoc.
+
+This is just one example of how subtle but systematic differences in the waveshape of a single cell can lead to sorting errors. For most of these characteristics, however, the *extracellular signal variance is highly correlated across channels* for single cells. In contrast, true multiple cells, which are necessarily separated in space, may show waveform variance in the signal that is decorrelated across channels. This is one sign of a "true" split.
+
+see also:
+
+[NMDAR BAPs alter waveshape](https://www.jneurosci.org/content/21/1/240)
+[Electrophysiological characteristics of hippocampal complex-spike cells and theta cells](https://link.springer.com/article/10.1007/BF00238898)
 
 
 ### Noisy clusters
