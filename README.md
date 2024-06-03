@@ -4,7 +4,7 @@ Spike Sorting launcher: setup, tutorial, examples, best practice for Hoffman Lab
 ------------------------------------------------------------------------
 This repository will help you get started spike sorting for high resoluton probes like DBC's Deep array probes 64, 128 ch (or Neuropixels probes). 
 
-The software you need and example data are either linked to or reside on the lab's file server https://129.59.231.19:5001  ('/datahome_2/AnalysisTools/SpikeSorting/ `).
+The software you need and example data are on the DBC cloud storage/server.
 
 ------------------------------------------------------------------------
 
