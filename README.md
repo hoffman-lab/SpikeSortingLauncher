@@ -87,7 +87,7 @@ Phy plugins are a number of added features to the basic Phy functionality. The m
 
 ## Preprocessing data for Spike Sorting
 
-Preprocessing comprises formatting data into Kilosort compatible format (binary files) and cleaning the data (e.g. removing common noise across channels). Kilosort can read a single binary file (e.g. .dat with specific precisions e.g. 16bit) which contains all channels and data points in [channel by timepoint] structure. If the data is already Kilosort compatible, conversions are not required. <br>
+Preprocessing comprises formatting data into Kilosort compatible format (binary files) and cleaning the data (e.g. removing common noise across channels). Kilosort can read a single binary file (e.g. .dat with specific precisions e.g. 16bit) which contains all channels and data points in [channel by timepoint] structure. If the data are already Kilosort compatible, conversions are not required. <br>
 
 If the recorded data has shared artifacts across the channels, sometimes Common Average Referencing can be used to remove noise. Common Average Referencing (CAR) is a signal processing technique used in spike sorting to improve the quality of neural recordings by reducing noise. In CAR, the mean signal from all recording channels of a neural probe is calculated and then subtracted from each individual channel. This process helps to remove common noise sources, such as electrical interference and movement artifacts, that affect all channels similarly. By doing so, CAR enhances the signal-to-noise ratio, making it easier to detect and accurately sort spikes from individual neurons. This technique is particularly useful in high-density recordings where common noise can significantly impact the quality of the recorded data. <br>
 
@@ -95,7 +95,7 @@ Matlab code for running CAR on binary data: https://github.com/cortex-lab/spikes
 
 
 ### Conversion Instructions for Neuralynx/Freelynx systems
-In Perpl lab, we use Neurolynx/freelynx for our wireless recordings in the lab. The primary file format used by Neuralynx is (CSC) which store continuous, raw electrophysiological data. Each CSC file corresponds to a single channel of data and includes time-stamped voltage measurements recorded from the neural probe. To spike sort the data with Kilosort, we need to create a binary file (convert our data from Neuralynx .ncs files to a single .dat file). To understand the conversion process, you need to know about what binary files are? What is the precision of a binary file? What is bitVolt? <br>
+In the Hoffman lab, we use Neuralynx/Freelynx for our wireless recordings in the lab. The primary file format used by Neuralynx is (CSC) which store continuous, raw electrophysiological data. Each CSC file corresponds to a single channel of data and includes time-stamped voltage measurements recorded from the neural probe. To spike sort the data with Kilosort, we need to create a binary file (convert our data from Neuralynx .ncs files to a single .dat file). To understand the conversion process, you need to know what binary files are, the precision of a binary file, and what a bitVolt is. <br>
 
 <details>
 
