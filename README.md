@@ -1,16 +1,16 @@
 # Spike Sorting with Kilosort
-Spike Sorting launcher: setup, tutorial, examples, best practice for Hoffman Lab data
+Spike Sorting launcher: setup, tutorial, examples, best practice for Hoffman Lab and other high-density neural data
 	
 ------------------------------------------------------------------------
-This repository will help you get started spike sorting for high resoluton probes like DBC's Deep array probes 64, 128 ch (or Neuropixels probes). 
+This repository will help you get started spike sorting with high resolution probes (e.g. Diagnostic Biochip's Deep Array probes, Neuropixels probes, or others). 
 
-The software you need and example data are on the DBC cloud storage/server.
+For the official tutorial, the software you need and example data are on the DBC cloud storage/server.
 
 ------------------------------------------------------------------------
 
-## General Principles you need to know before you start
+## General principles, before you start
 
-"One of the most powerful techniques for neuronal population recording is extracellular electrophysiology using microfabricated electrode arrays. Advances in microfabrication have continually increased the number of recording sites available on neural probes, and the number of recordable neurons is further increased by having closely spaced recording sites."
+"One of the most powerful techniques for neuronal population recording is extracellular electrophysiology using microfabricated electrode arrays. Advances in microfabrication have continually increased the number of recording sites available on neural probes, and the number of recordable neurons is further increased by having closely spaced recording sites." Waveforms on >=3 sites per unit is recommended for this discussion. 
 
 "What is spike sorting? A gold standard in neuroscience is to record extracellularly the activity of single neurons with thin electrodes implanted in the brain. Extracellular recordings pick up the spikes of neurons nearby the electrode tip and the job of the experimenter is to determine which spike corresponds to which neuron. This identification is done based on the shape of the spikes, given that, in principle, each neuron fires spikes of a particular shape, depending on the morphology of its dendritic tree and the distance and orientation relative to the recording site, among other factors. Spike sorting is the grouping of the detected spikes into clusters based on the similarity of their shapes. The resulting clusters of spikes correspond to the activity of different putative neurons. [Spike sorting](https://www.sciencedirect.com/science/article/pii/S0960982211012541)"
 
@@ -19,9 +19,9 @@ The software you need and example data are on the DBC cloud storage/server.
 Kilosort and several other recently developed spike sorting algorithms use template matching techniques for spike sorting, which operate somewhat differently from traditional methods. These algorithms start by detecting spikes across multiple channels of a neural probe and then identify representative spike waveforms, or templates, for each neuron. During the sorting process, Kilosort continuously compares incoming spikes against these templates using a computationally efficient matching pursuit algorithm. Kilosort sort spikes by fitting spikes to the most similar templates. [Spike sorting with Kilosort - Marius Pachitariu (HHMI)](https://www.youtube.com/watch?v=cmrAhhquC9E&t=9s).
 
 
-## Physiology of signal and sorting algorithm limitations
+## Physiological basis and sorting algorithm limitations
 
-## Key Reading
+### Key Reading
 * [Spike sorting](https://www.cell.com/current-biology/pdf/S0960-9822(11)01254-1.pdf)<br>
 * [Chapter 1 - Spike Sorting](https://neurophysics.ucsd.edu/publications/obd_ch3_2.pdf)<br>
 * [Spike sorting: new trends and challenges of the era of high-density probes](https://iopscience.iop.org/article/10.1088/2516-1091/ac6b96/meta)<br>
@@ -30,14 +30,14 @@ Kilosort and several other recently developed spike sorting algorithms use templ
 * [Spike sorting with Kilosort4](https://www.nature.com/articles/s41592-024-02232-7)<br>
 *refer to Further Reading below*
 
-## Tutorials
+### Tutorials
 
 * Spike sorting with Kilosort - Marius Pachitariu (HHMI): https://www.youtube.com/watch?v=cmrAhhquC9E&t=2s <br>
 * Using Phy to curate spike sorting - Nick Steinmetz (UW): https://www.youtube.com/watch?v=N7AsWVk5JVk&t=1783s <br>
 * Important spike sorting info: https://edmerix.github.io/SpikeSorting/ <br>
 
 
-## External Resources
+### External Resources
 * CortexLab: https://github.com/cortex-lab <br>
 * Spike sorting benchmark: https://spikeforest.flatironinstitute.org/ <br>
 * Unit Quality Metrics: https://allensdk.readthedocs.io/en/latest/_static/examples/nb/ecephys_quality_metrics.html <br>
@@ -85,7 +85,7 @@ Github: https://github.com/petersenpeter/phy2-plugins <br>
 
 Phy plugins are a number of added features to the basic Phy functionality. The most important one is reclustering with Klusta which allows you to perform clustering on the Kilosort output in Phy.
 
-## Preprocessing data for Spike Sorting
+## Preprocessing data for spike sorting
 
 Preprocessing comprises formatting data into Kilosort compatible format (binary files) and cleaning the data (e.g. removing common noise across channels). Kilosort can read a single binary file (e.g. .dat with specific precisions e.g. 16bit) which contains all channels and data points in [channel by timepoint] structure. If the data are already Kilosort compatible, conversions are not required. <br>
 
@@ -94,23 +94,23 @@ If the recorded data has shared artifacts across the channels, sometimes Common 
 Matlab code for running CAR on binary data: https://github.com/cortex-lab/spikes/blob/master/preprocessing/applyCARtoDat.m
 
 
-### Conversion Instructions for Neuralynx/Freelynx systems
+### Conversion Instructions for Neuralynx/Freelynx Systems
 In the Hoffman lab, we use Neuralynx/Freelynx for our wireless recordings in the lab. The primary file format used by Neuralynx is (CSC) which store continuous, raw electrophysiological data. Each CSC file corresponds to a single channel of data and includes time-stamped voltage measurements recorded from the neural probe. To spike sort the data with Kilosort, we need to create a binary file (convert our data from Neuralynx .ncs files to a single .dat file). To understand the conversion process, you need to know what binary files are, the precision of a binary file, and what a bitVolt is. <br>
 
 <details>
 
 <summary>Binary Files</summary>
 
-# What is a Binary File?
+## What is a Binary File?
 
 A binary file is a type of computer file that contains data in a format that is not human-readable but is meant to be interpreted by a computer program. Unlike text files, which store data in a sequence of characters that can be read as text, binary files store data in a sequence of bytes that represent binary data, such as numbers, images, audio, or any other type of raw data.
 
-## Characteristics of Binary Files
+### Characteristics of Binary Files
 **Format:** Binary files can contain any type of data, encoded in binary form. This could include integers, floating-point numbers, characters, and more. <br>
 **Efficiency:** They are typically more compact and efficient for storing large amounts of data because they store the raw byte representations without the need for conversion to and from text. <br>
 **Specific Use:** Often used for applications requiring precise data representation, such as executable programs, images, audio files, and scientific data.
 
-# Precision of a Binary File
+### Precision of a Binary File
 The precision of a binary file refers to how accurately the data is represented within the file. It is determined by the following factors:
 
 Data Type and Bit Depth: The type of data and the number of bits used to represent each unit of data (e.g., 8-bit, 16-bit, 32-bit, 64-bit) significantly affect precision.
@@ -121,12 +121,12 @@ Floating-Point Precision: For floating-point numbers, precision depends on the f
 
 Encoding and Representation: The method used to encode data in the file (e.g., IEEE 754 for floating-point numbers) also affects precision.
 
-# Practical Examples
+### Practical Examples
 **Electrophysiological Data:** In electrophysiological recordings, the precision of the data stored in binary files is crucial. For instance, the voltage values recorded from neurons may be stored as 16-bit or 24-bit integers, affecting how finely the voltages can be distinguished. <br>
 
 **Image Files:** For image files, precision can refer to color depth. An 8-bit image can represent 256 different colors per channel, while a 24-bit image can represent over 16 million colors.
 
-# Summary
+## Summary
 A binary file stores data in a binary format, which is efficient and capable of representing various types of data accurately. The precision of a binary file is determined by the data type, bit depth, file structure, and encoding method, all of which define how accurately the data is represented and stored. This precision is crucial in applications requiring high data fidelity, such as scientific computing, image processing, and audio recording.
 
 </details>
@@ -165,7 +165,7 @@ In summary, the bitvolt is a key parameter that determines the precision of elec
 
 </details>
 
-I wrote a MATLAB script for converting .csc files to a single .dat file ( `perpl_NLX2Binary`). By default, I change the bitVolts to 0.195 because this is more commonly used in intan/openephys systems and allows for easier concatenation of files. Note that for concatenation, all files MUST have the same bitVolt. The script requires NLX Mex files.
+I (SA) wrote a MATLAB script for converting .csc files to a single .dat file ( `perpl_NLX2Binary`). By default, I change the bitVolts to 0.195 because this is more commonly used in intan/openephys systems and allows for easier concatenation of files. Note that for concatenation, all files MUST have the same bitVolt. The script requires NLX Mex files.
 
 You can download NLX to MATLAB Import/Export MEX Files from [here](https://github.com/vandermeerlab/vandermeerlab/tree/master/code-matlab/shared/io/neuralynx) <br>
 
@@ -180,7 +180,7 @@ NeuroScope is an advanced viewer for neurophysiological and behavioral data: it 
 Download: https://neurosuite.sourceforge.net/
 
 
-## Getting started with example data
+# Getting started with example data
 
 ### Edit the config file with desired parameters
 In Kilosort, a config file refers to a configuration script or parameters file for defining the parameters and settings used during the spike sorting process. This file allows users to customize various aspects of Kilosort's operation to suit specific datasets or experimental conditions. 
