@@ -21,6 +21,7 @@ Kilosort and several other recently developed spike sorting algorithms use templ
 
 "One of the most powerful techniques for neuronal population recording is extracellular electrophysiology using microfabricated electrode arrays. Advances in microfabrication have continually increased the number of recording sites available on neural probes, and the number of recordable neurons is further increased by having closely spaced recording sites." Waveforms on >=3 sites per unit is recommended for this discussion. 
 
+![CellsPerSiteSorted_Gelinas](https://github.com/user-attachments/assets/497e5891-adc6-4178-a903-fd9d6a1553db)
 
 
 ### Key Reading
