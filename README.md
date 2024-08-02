@@ -1,5 +1,5 @@
-# Spike Sorting with Kilosort
-Spike Sorting launcher: setup, tutorial, examples, best practice for Hoffman Lab and other high-density neural data
+# Spike sorting with Kilosort
+Spike sorting launcher: setup, tutorial, examples, best practice for Hoffman Lab and other high-density neural data
 	
 ------------------------------------------------------------------------
 This repository will help you get started spike sorting with high resolution probes (e.g. Diagnostic Biochip's Deep Array probes, Neuropixels probes, or others). 
